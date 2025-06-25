@@ -127,7 +127,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\src\Includes\irrKlang-64bit-1.6.0\include;..\src\dependencies\x64\GLAD\include;..\src\dependencies\x64\glfw-3.4.bin.WIN64\include;..\src\dependencies\glm;..\src\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\Includes\irrKlang-64bit-1.6.0\include;..\src\dependencies\x64\GLAD\include;..\src\dependencies\x64\glfw-3.4.bin.WIN64\include;..\src\dependencies\x64\glm;..\src\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,7 +147,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\src\Includes\irrKlang-64bit-1.6.0\include;..\src\dependencies\x64\GLAD\include;..\src\dependencies\x64\glfw-3.4.bin.WIN64\include;..\src\dependencies\glm;..\src\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src\Includes\irrKlang-64bit-1.6.0\include;..\src\dependencies\x64\GLAD\include;..\src\dependencies\x64\glfw-3.4.bin.WIN64\include;..\src\dependencies\x64\glm;..\src\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
     </ClCompile>
     <Link>
