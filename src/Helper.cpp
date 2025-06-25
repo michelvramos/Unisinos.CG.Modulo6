@@ -12,7 +12,7 @@ void Helper::InterpolateLinear(const AnimationPoint& p1, const AnimationPoint& p
 }
 
 void Helper::InterpolateHermite(const AnimationPoint& p0, const glm::vec3& tan0, const glm::vec3& rt0, const AnimationPoint& p1, const glm::vec3& tan1, const glm::vec3& rt1,AnimationPoint& result, const float t)
-{
+{	
 	glm::vec3 pp1(p0.offsetX, p0.offsetY, p0.offsetZ);
 	glm::vec3 pp2(p1.offsetX, p1.offsetY, p1.offsetZ);
 

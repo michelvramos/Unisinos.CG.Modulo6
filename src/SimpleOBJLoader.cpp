@@ -188,6 +188,21 @@ void SimpleOBJLoader::LoadAnimation(std::string filePath, std::vector<AnimationP
 	}
 
 	fileStream.close();
+	float speed = 120.0f;
+	
+	for (size_t i = 1; i < animation.size(); ++i)
+	{
+		if (animation[i].timeMs > -1.0f)
+		{
+			continue;
+		}
+
+		float dist = glm::distance(glm::vec3(animation[i].offsetX, animation[i].offsetY, animation[i].offsetZ), glm::vec3(animation[i-1].offsetX, animation[i-1].offsetY, animation[i-1].offsetZ));
+		float tempo_ms = (dist / speed) * 1000.0f;
+		
+		animation[i].timeMs = tempo_ms;
+	}
+
 
 	if (type != 'b')
 	{

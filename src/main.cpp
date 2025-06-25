@@ -44,11 +44,10 @@ int setupShader(GLint& success);
 std::string LoadShaderSource(const std::string& filePath);
 void EnableLight(GLuint uniLocation, glm::vec3 color);
 
-
-const GLuint WIDTH = (GLuint)(720 * 1.7), HEIGHT = 720;
-
 bool enableLight1 = true, enableLight2 = true, enableLight3 = true;
 
+//modo janela
+//const GLuint WIDTH = (GLuint)(720 * 1.7), HEIGHT = 720;
 
 int main()
 {
@@ -57,10 +56,13 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+	const GLuint WIDTH = (GLuint)mode->width, HEIGHT = mode->height;
 
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, u8"Computação Gráfica - Módulo 06", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, u8"Computação Gráfica - Módulo 06", monitor, nullptr);
 	glfwMakeContextCurrent(window);
-
+	glfwSwapInterval(1);
 	glfwSetKeyCallback(window, key_callback);
 
 	// GLAD: carrega todos os ponteiros de funções da OpenGL
