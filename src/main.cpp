@@ -47,20 +47,33 @@ void EnableLight(GLuint uniLocation, glm::vec3 color);
 bool enableLight1 = true, enableLight2 = true, enableLight3 = true;
 
 //modo janela
-//const GLuint WIDTH = (GLuint)(720 * 1.7), HEIGHT = 720;
+GLuint WIDTH = (GLuint)(720 * 1.7), HEIGHT = 720;
 
 int main()
 {
+	bool fullScren = false;
+
 	glfwInit();
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-	const GLuint WIDTH = (GLuint)mode->width, HEIGHT = mode->height;
+	GLFWwindow* window;
 
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, u8"Computação Gráfica - Módulo 06", monitor, nullptr);
+	if (fullScren)
+	{
+		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+		const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+		 WIDTH = (GLuint)mode->width, HEIGHT = mode->height;
+
+		 window = glfwCreateWindow(WIDTH, HEIGHT, u8"Computação Gráfica - Módulo 06", monitor, nullptr);
+	}
+	else
+	{
+		WIDTH = (GLuint)(720 * 1.7), HEIGHT = 720;
+		window = glfwCreateWindow(WIDTH, HEIGHT, u8"Computação Gráfica - Módulo 06", nullptr, nullptr);
+	}
+
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1);
 	glfwSetKeyCallback(window, key_callback);
