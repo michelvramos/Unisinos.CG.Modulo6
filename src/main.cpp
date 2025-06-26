@@ -46,8 +46,9 @@ void EnableLight(GLuint uniLocation, glm::vec3 color);
 
 bool enableLight1 = true, enableLight2 = true, enableLight3 = true;
 
-//modo janela
-GLuint WIDTH = (GLuint)(720 * 1.7), HEIGHT = 720;
+//modo 
+const int desiredWindowHeight = 690;
+GLuint WIDTH = (GLuint)(desiredWindowHeight * 1.7), HEIGHT = desiredWindowHeight;
 
 int main()
 {
@@ -69,8 +70,7 @@ int main()
 		 window = glfwCreateWindow(WIDTH, HEIGHT, u8"Computação Gráfica - Módulo 06", monitor, nullptr);
 	}
 	else
-	{
-		WIDTH = (GLuint)(720 * 1.7), HEIGHT = 720;
+	{		
 		window = glfwCreateWindow(WIDTH, HEIGHT, u8"Computação Gráfica - Módulo 06", nullptr, nullptr);
 	}
 
