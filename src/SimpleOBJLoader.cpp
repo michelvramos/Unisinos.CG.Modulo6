@@ -190,6 +190,7 @@ void SimpleOBJLoader::LoadAnimation(std::string filePath, std::vector<AnimationP
 	fileStream.close();
 	float speed = 120.0f;
 	
+	//calcula tempo de animaçao em velocidade constante
 	for (size_t i = 1; i < animation.size(); ++i)
 	{
 		if (animation[i].timeMs > -1.0f)
