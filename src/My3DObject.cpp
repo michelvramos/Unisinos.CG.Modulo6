@@ -52,8 +52,7 @@ void My3DObject::SetRotation(glm::vec3 increment)
 }
 
 void My3DObject::Transform()
-{
-	//scaleFactorAccumulated *= scale;
+{	
 	glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), scaleFactorAccumulated);
 
 	// rotação acumulada

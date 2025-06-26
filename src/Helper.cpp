@@ -3,18 +3,18 @@
 
 void Helper::InterpolateLinear(const AnimationPoint& p1, const AnimationPoint& p2, AnimationPoint& result, const float t)
 {
-	result.offsetX = p1.offsetX + (p2.offsetX - p1.offsetX) * t;
-	result.offsetY = p1.offsetY + (p2.offsetY - p1.offsetY) * t;
-	result.offsetZ = p1.offsetZ + (p2.offsetZ - p1.offsetZ) * t;
-	result.offsetYaw = p1.offsetYaw + (p2.offsetYaw - p1.offsetYaw) * t;
-	result.offsetPitch = p1.offsetPitch + (p2.offsetPitch - p1.offsetPitch) * t;
-	result.offsetRoll = p1.offsetRoll + (p2.offsetRoll - p1.offsetRoll) * t;
+	result.position.x = p1.position.x + (p2.position.x - p1.position.x) * t;
+	result.position.y = p1.position.y + (p2.position.y - p1.position.y) * t;
+	result.position.z = p1.position.z + (p2.position.z - p1.position.z) * t;
+	result.rotation.y = p1.rotation.y + (p2.rotation.y - p1.rotation.y) * t;
+	result.rotation.x = p1.rotation.x + (p2.rotation.x - p1.rotation.x) * t;
+	result.rotation.z = p1.rotation.z + (p2.rotation.z - p1.rotation.z) * t;
 }
 
-void Helper::InterpolateHermite(const AnimationPoint& p0, const glm::vec3& tan0, const glm::vec3& rt0, const AnimationPoint& p1, const glm::vec3& tan1, const glm::vec3& rt1,AnimationPoint& result, const float t)
+void Helper::InterpolateHermite(const glm::vec3& p0, const glm::vec3& r0, const glm::vec3& tan0, const glm::vec3& rt0, const const glm::vec3& p1, const glm::vec3& r1, const glm::vec3& tan1, const glm::vec3& rt1, glm::vec3& resultPos, glm::vec3& resultRot, const float t)
 {	
-	glm::vec3 pp1(p0.offsetX, p0.offsetY, p0.offsetZ);
-	glm::vec3 pp2(p1.offsetX, p1.offsetY, p1.offsetZ);
+	glm::vec3 pp1 = p0;
+	glm::vec3 pp2 = p1;
 
 	float t2 = t * t;
 	float t3 = t2 * t;
@@ -30,13 +30,11 @@ void Helper::InterpolateHermite(const AnimationPoint& p0, const glm::vec3& tan0,
 		h01 * pp2 +
 		h11 * tan1;
 
-	result.offsetX = pos.x;
-	result.offsetY = pos.y;
-	result.offsetZ = pos.z;
+	resultPos = pos;
 
-	result.offsetYaw = h00 * p0.offsetYaw + h10 * rt0.x + h01 * p1.offsetYaw + h11 * rt1.x;
-	result.offsetPitch = h00 * p0.offsetPitch + h10 * rt0.y + h01 * p1.offsetPitch + h11 * rt1.y;
-	result.offsetRoll = h00 * p0.offsetRoll + h10 * rt0.z + h01 * p1.offsetRoll + h11 * rt1.z;
+	resultRot.y = h00 * r0.y + h10 * rt0.x + h01 * r1.y + h11 * rt1.x;
+	resultRot.x= h00 * r0.x + h10 * rt0.y + h01 * r1.x + h11 * rt1.y;
+	resultRot.z = h00 * r0.z + h10 * rt0.z + h01 * r1.z + h11 * rt1.z;
 		
 }
 

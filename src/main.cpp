@@ -199,19 +199,18 @@ int main()
 
 	for (int i = 1; i < animationPoints.size() - 2; i++)
 	{
-		p0 = glm::vec3(animationPoints[i - 1].offsetX, animationPoints[i - 1].offsetY, animationPoints[i - 1].offsetZ);
-		p2 = glm::vec3(animationPoints[i + 1].offsetX, animationPoints[i + 1].offsetY, animationPoints[i + 1].offsetZ);
+		p0 = animationPoints[ i - 1].position;
+		p2 = animationPoints[i + 1].position;
 		pTangents.push_back((p2-p0)/2.0f);
 
-		p0 = glm::vec3(animationPoints[i - 1].offsetPitch, animationPoints[i - 1].offsetYaw, animationPoints[i - 1].offsetRoll);
-		p2 = glm::vec3(animationPoints[i + 1].offsetPitch, animationPoints[i + 1].offsetYaw, animationPoints[i + 1].offsetRoll);
+		p0 = animationPoints[i - 1].rotation;
+		p2 = animationPoints[i + 1].rotation;
 		rTangents.push_back((p2 - p0) / 2.0f);
 	}
 	pTangents.push_back(glm::vec3(0));
 	rTangents.push_back(glm::vec3(0));
-
-
-	arwing.SetStartPosition(glm::vec3(animationPoints[0].offsetX, animationPoints[0].offsetY, animationPoints[0].offsetZ));
+		
+	arwing.SetStartPosition(glm::vec3(-6.9478f, 18.3713f, 40.3954f));
 	arwing.SetRotation(glm::vec3(0, 180, 0));
 	arwing.Transform();	
 
@@ -280,8 +279,8 @@ int main()
 	int currentAnimationSegment = -1;
 	int animationSegmentsSize = animationPoints.size();
 	float animationStartTime = glfwGetTime() * 1000;
-	AnimationPoint startAnimation{ 0,0,0,0,0,0,0 };
-	float lastOffX, lastOffY, lastOffZ, lastOffYaw, lastOffRoll, lastOffPitch;
+	AnimationPoint startAnimation{ glm::vec3(0),glm::vec3(0),0};
+	glm::vec3 lastPostion, lastRotation;
 	float fps = 1.0f / 60.0f;
 
 	glUniformMatrix4fv(projectionUniLocation, 1, GL_FALSE, glm::value_ptr(camera.m_projectionMatrix));
@@ -331,13 +330,10 @@ int main()
 			{
 				currentAnimationSegment = 1;
 				animationStartTime = glfwGetTime() * 1000.0f;
-				lastOffX = lastOffY = lastOffZ = lastOffPitch = lastOffRoll = lastOffYaw = 0.0f;
-				startAnimation.offsetX = 0;
-				startAnimation.offsetY = 0;
-				startAnimation.offsetZ = 0;
-				startAnimation.offsetYaw = 0;
-				startAnimation.offsetPitch = 0;
-				startAnimation.offsetRoll = 0;
+				lastPostion = glm::vec3(0);
+				lastRotation = glm::vec3(0);
+				startAnimation.position = glm::vec3(0);
+				startAnimation.rotation = glm::vec3(0);				
 			}
 
 			float actualTimeMs = glfwGetTime() * 1000.0f;
@@ -351,22 +347,13 @@ int main()
 				if (currentAnimationSegment >= animationPoints.size()-2)
 				{
 					currentAnimationSegment = 1;
-					startAnimation.offsetX = 0;
-					startAnimation.offsetY = 0;
-					startAnimation.offsetZ = 0;
-					startAnimation.offsetYaw = 0;
-					startAnimation.offsetPitch = 0;
-					startAnimation.offsetRoll = 0;
-					//animationEnabled = false;
+					startAnimation.position = glm::vec3(0);
+					startAnimation.rotation = glm::vec3(0);
 				}
 				else
 				{
-					startAnimation.offsetX = animationPoints[currentAnimationSegment - 1].offsetX;
-					startAnimation.offsetY = animationPoints[currentAnimationSegment - 1].offsetY;
-					startAnimation.offsetZ = animationPoints[currentAnimationSegment - 1].offsetZ;
-					startAnimation.offsetYaw = animationPoints[currentAnimationSegment - 1].offsetYaw;
-					startAnimation.offsetPitch = animationPoints[currentAnimationSegment - 1].offsetPitch;
-					startAnimation.offsetRoll = animationPoints[currentAnimationSegment - 1].offsetRoll;
+					startAnimation.position = animationPoints[currentAnimationSegment - 1].position;
+					startAnimation.rotation = animationPoints[currentAnimationSegment - 1].rotation;					
 				}
 			}
 
@@ -374,32 +361,27 @@ int main()
 			{
 				AnimationPoint currentAnimation = animationPoints[currentAnimationSegment];
 				float percent = glm::clamp((actualTimeMs - animationStartTime) / currentAnimation.timeMs, 0.0f, 1.0f);
-				AnimationPoint currOffset;
+				glm::vec3 resultPos;
+				glm::vec3 resultRot;
 				
-				Helper::InterpolateHermite(currentAnimation,
+				Helper::InterpolateHermite(
+					currentAnimation.position,
+					currentAnimation.rotation,
 					pTangents[currentAnimationSegment],
 					rTangents[currentAnimationSegment],
-					animationPoints[currentAnimationSegment + 1],
+					animationPoints[currentAnimationSegment + 1].position,
+					animationPoints[currentAnimationSegment + 1].rotation,
 					pTangents[currentAnimationSegment + 1],
 					rTangents[currentAnimationSegment+1],
-					currOffset,
+					resultPos,
+					resultRot,
 					percent);
 
-				modelTranslation.x = currOffset.offsetX - lastOffX;
-				modelTranslation.y = currOffset.offsetY - lastOffY;
-				modelTranslation.z = currOffset.offsetZ - lastOffZ;
+				modelTranslation = resultPos - lastPostion;	
+				modelRotation = resultRot - lastRotation;
 
-				modelRotation.x = currOffset.offsetPitch - lastOffPitch;
-				modelRotation.y = currOffset.offsetYaw - lastOffYaw;
-				modelRotation.z = currOffset.offsetRoll - lastOffRoll;
-
-				lastOffYaw = currOffset.offsetYaw;
-				lastOffPitch = currOffset.offsetPitch;
-				lastOffRoll = currOffset.offsetRoll;
-
-				lastOffX = currOffset.offsetX;
-				lastOffY = currOffset.offsetY;
-				lastOffZ = currOffset.offsetZ;
+				lastPostion = resultPos;
+				lastRotation = resultRot;				
 			}
 		}
 		

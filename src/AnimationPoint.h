@@ -1,5 +1,5 @@
 #pragma once
-
+#include <glm/glm.hpp>
 
 struct AnimationPoint
 {
@@ -9,5 +9,7 @@ struct AnimationPoint
 		Offset
 	};
 
-	float offsetX, offsetY, offsetZ, offsetYaw, offsetPitch, offsetRoll, timeMs;
+	glm::vec3 position;
+	glm::vec3 rotation;
+	float timeMs;
 };
