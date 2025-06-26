@@ -209,7 +209,8 @@ int main()
 	}
 	pTangents.push_back(glm::vec3(0));
 	rTangents.push_back(glm::vec3(0));
-		
+	
+	//posicionar a nave 
 	arwing.SetStartPosition(glm::vec3(-6.9478f, 18.3713f, 40.3954f));
 	arwing.SetRotation(glm::vec3(0, 180, 0));
 	arwing.Transform();	
@@ -404,7 +405,7 @@ int main()
 			camera.m_position = glm::mix(camera.m_position, desiredCameraPos, 0.05f); // 0.1f = suavidade
 
 			//aplica a transformação, movendo a câmera.
-			camera.ApplyTransform();			
+			camera.ApplyTransform();
 		}
 		else
 		{

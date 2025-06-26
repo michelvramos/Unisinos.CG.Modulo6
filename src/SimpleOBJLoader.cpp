@@ -206,16 +206,15 @@ void SimpleOBJLoader::LoadAnimation(std::string filePath, std::vector<AnimationP
 		float dist = glm::distance(animation[i].position, animation[i-1].position);
 		float tempo_ms = (dist / speed) * 1000.0f;
 		
-		animation[i].timeMs = tempo_ms;
+		animation[i].timeMs = tempo_ms;	
 	}
-
 
 	if (type != 'b')
 	{
 		return;
 	}
 
-	x=0, y=0, z=0;
+	x=0, y=0, z=0, rx=0, ry=0, rz=0;
 	
 	//ajustar os eixos do vindos do Blender
 	for (int i = 0; i < animation.size(); i++)
@@ -224,9 +223,18 @@ void SimpleOBJLoader::LoadAnimation(std::string filePath, std::vector<AnimationP
 		y = animation[i].position.z;
 		z = animation[i].position.y;
 
+		rx = -animation[i].rotation.x;
+		ry = animation[i].rotation.z;
+		rz = animation[i].rotation.y;
+
 		animation[i].position.x = x;
 		animation[i].position.y = y;
 		animation[i].position.z = z;
+
+		animation[i].rotation.x = rx;
+		animation[i].rotation.y = ry;
+		animation[i].rotation.z = rz;
+
 	}
 
 	//transforma absolutos em offsets
@@ -237,7 +245,7 @@ void SimpleOBJLoader::LoadAnimation(std::string filePath, std::vector<AnimationP
 		animation[i].position.y-= p1.position.y;
 		animation[i].position.z -= p1.position.z;
 	}
-
+	return;
 	// ---- Cálculo dos ângulos acumulativos, pois Blender não ajuda!!!! ----
 	 // Primeiro segmento define yaw inicial
 	float dx0 = animation[1].position.x - animation[0].position.x;
