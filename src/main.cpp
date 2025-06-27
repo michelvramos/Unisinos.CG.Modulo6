@@ -108,10 +108,8 @@ int main()
 	irrklang::ISoundEngine* engine = irrklang::createIrrKlangDevice();
 	if (!engine)
 	{
-		return 0; // error starting up the engine
-	}
-
-	
+		printf("Erro ao criar engine de som\n");
+	}	
 	
 	My3DObject arwing("Assets/arwing.obj", "Assets/arwing.mtl");
 	arwing.colorTextureId = MyTextureLoader::LoadTexture("Assets/baked_color.png", true);
@@ -292,7 +290,10 @@ int main()
 	glm::vec3 modelRotation = glm::vec3(0.0f);
 	float modelScaleFactor = 1.0f;
 		
-	engine->play2D("Assets/Star Fox - Corneria.mp3", true);
+	if (engine)
+	{
+		engine->play2D("Assets/Star Fox - Corneria.mp3", true);
+	}
 		
 	while (!glfwWindowShouldClose(window))
 	{
@@ -439,13 +440,16 @@ int main()
 		glfwSwapBuffers(window);
 	}
 
-	try
+	if (engine)
 	{
-		engine->drop(); // delete engine
-	}
-	catch (const char* ex)
-	{
+		try
+		{
+			engine->drop(); // delete engine
+		}
+		catch (const char* ex)
+		{
 
+		}
 	}
 
 	// Pede pra OpenGL desalocar os buffers	

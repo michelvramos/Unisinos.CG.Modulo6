@@ -73,41 +73,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="Assets\Bricks059_1K-JPG_Color.jpg">
-      <Filter>Assets</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bricks059_1K-JPG_AmbientOcclusion.jpg">
-      <Filter>Assets</Filter>
-    </CopyFileToFolders>
     <CopyFileToFolders Include="Shaders\cube.frag">
       <Filter>Shaders</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Shaders\cube.vert">
       <Filter>Shaders</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\cube.obj">
-      <Filter>Assets</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\cube.mtl">
-      <Filter>Assets</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\sphere.obj">
-      <Filter>Assets</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\PavingStones142_1K-PNG_AmbientOcclusion.png">
-      <Filter>Assets</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\PavingStones142_1K-PNG_Color.png">
-      <Filter>Assets</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Tiles110_1K-PNG_AmbientOcclusion.png">
-      <Filter>Assets</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Tiles110_1K-PNG_Color.png">
-      <Filter>Assets</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\sphere.mtl">
-      <Filter>Assets</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\arwing.mtl">
       <Filter>Assets</Filter>
